@@ -510,6 +510,7 @@ nav input:hover {
   width: 31%;
   text-align: center;
   transition: 0.6s;
+  padding-bottom: 2rem;
 }
 
 .carteAvecBouton img {
@@ -823,7 +824,7 @@ footer .fontLogo i {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1000px) {
-
+  
   nav {
     position: absolute;
   };
@@ -905,7 +906,7 @@ footer .fontLogo i {
    .cinquiemePartie{
     display: block;
     padding-top: 0;
-
+   
    }
    
    .texteCinquiemePartie {
@@ -959,7 +960,7 @@ footer .fontLogo i {
    .barreOrange3 {
     margin: 2rem auto 0 auto;
    }
-
+   
    /* HUITIEME PARTIE */
    
    .carteAvecBoutonContainer {
@@ -970,14 +971,14 @@ footer .fontLogo i {
    .carteAvecBouton {
     width: 95%;
    }
-
+   
    /* NEUVIEME PARTIE*/
    
    .carteMasseurContainer {
     display: grid;
     grid-template-columns: auto auto;
    }
-
+   
    .carteMasseur {
     width: 100%;
    }
@@ -1000,6 +1001,12 @@ footer .fontLogo i {
    
    .masseuseContainer4 {
     left: 99px;
+   }
+   
+   /*PARTIE BLOG*/
+   
+   .deuxiemePartieBlog{
+    grid-template-columns: auto auto;
    }
    
    /*FOOTER*/
@@ -1217,6 +1224,11 @@ footer .fontLogo i {
     top: -240px;
     height: 28rem;
     width: 20rem;
+   }
+
+   /*PARTIE BLOG*/
+   .deuxiemePartieBlog{
+    display: block;
    }
    
    /*FOOTER*/

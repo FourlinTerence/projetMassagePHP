@@ -3,16 +3,17 @@
 <html lang="en">
 <?php include ("INChead.php"); ?>
 <body>
+    
 <?php    
- if( isset($_POST['id']) )
- {
-      $article = $_POST['id'];
- }else{ $article = $salonMassage->select(1);}
+ if(isset($_POST['id'])){
+      $article = $salonMassage->selectArticles($_POST['id']);
+ }else{ $article = $salonMassage->selectArticles(1);}
 ;?>
+
 <?php include ("INCnavbar.php"); 
 echo '<div class="premierePartieArticle">
         <h1>'.$article[0]['titre'].'</h1>
-        <p>Published on'.$article[0]['dateDePublication'].'</p>
+        <p>Published on '.$article[0]['dateDePublication'].'</p>
     </div>;
 
 <section class="deuxiemePartieArticle">
