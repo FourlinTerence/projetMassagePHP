@@ -1,11 +1,6 @@
 <?php
  class MaConnexion{
-    /*
-    private $nomBaseDeDonnees = "";
-    private $motDePasse = "";
-    private $nomUtilisateur = "root";
-    private $hote = "localhost";
-    */
+
     private $nomBaseDeDonnees;
     private $motDePasse;
     private $nomUtilisateur;
@@ -33,7 +28,7 @@
         try {
             $requete = "SELECT $column from $table";
             $resultat = $this->connexionPDO->query($requete);
-            $resultat = $resultat->fetchAll(PDO::FETCH_ASSOC);//Recupere le resultat de la requete dans un tableau associatif
+            $resultat = $resultat->fetchAll(PDO::FETCH_ASSOC);
             return $resultat;
         
         } catch (PDOException $e) {
@@ -45,49 +40,50 @@
         try {
             $requete = "SELECT * from articles WHERE id = $id";
             $resultat = $this->connexionPDO->query($requete);
-            $resultat = $resultat->fetchAll(PDO::FETCH_ASSOC);//Recupere le resultat de la requete dans un tableau associatif
+            $resultat = $resultat->fetchAll(PDO::FETCH_ASSOC);
             return $resultat;
         
         } catch (PDOException $e) {
             echo "Erreur : ".$e->getMessage();
         }    
     }
-
-    public function insert_articles($titre, $résumé, $titre_2 , $contenue1, $titre_3, $contenu_2, $photo, $dateDePublication, $auteur, $contenu_3){
+    
+    public function insertArticle_Secure($titre, $auteur, $résumé, $contenue1, $titre_2 , $contenu_2, $titre_3, $contenu_3,$photo){
         try {
-
-            $insertion = "INSERT INTO  `articles`(titre, résumé, titre_2 , contenue1, titre_3, contenu_2, photo, dateDePublication, auteur, contenu_3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $insertion = "INSERT INTO  `articles`(titre, auteur, résumé, contenue1, titre_2 ,contenu_2,  titre_3,contenu_3,  photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $requete = $this -> connexionPDO -> prepare($insertion);
             $requete->bindValue(1, $titre,PDO::PARAM_STR);
-            $requete->bindValue(2, $résumé,PDO::PARAM_STR);
-            $requete->bindValue(3, $titre_2,PDO::PARAM_STR);
+            $requete->bindValue(2, $auteur,PDO::PARAM_STR);
+            $requete->bindValue(3, $résumé,PDO::PARAM_STR);
             $requete->bindValue(4, $contenue1,PDO::PARAM_STR);
-            $requete->bindValue(5, $titre_3,PDO::PARAM_STR);
-            $requete->bindValue(6, $contenu_2);
-            $requete->bindValue(7, $photo,PDO::PARAM_STR);
-            $requete->bindValue(8, $dateDePublication,PDO::PARAM_STR);
-            $requete->bindValue(9, $auteur,PDO::PARAM_STR);
-            $requete->bindValue(10, $contenu_3,PDO::PARAM_STR);
-            
-        
+            $requete->bindValue(5, $titre_2,PDO::PARAM_STR);
+            $requete->bindValue(6, $contenu_2,PDO::PARAM_STR);
+            $requete->bindValue(7, $titre_3,PDO::PARAM_STR);
+            $requete->bindValue(8, $contenu_3,PDO::PARAM_STR);
+            $requete->bindValue(9, $photo,PDO::PARAM_STR);
             $requete->execute();
-
         } catch (PDOException $e) {
-
             echo "Erreur : " . $e->getMessage();
-
         }
     }
     
-    public function miseAJour_Secure($table, $column, $newValue, $id)
+    public function miseAJourArticles_Secure($titre, $auteur, $résumé, $contenue1, $titre_2, $contenu_2, $titre_3, $contenu_3, $photo, $id)
     {
         try {
-            $requete = "UPDATE $table SET $column  = ? WHERE ID_Produit = ?";
+            $requete = "UPDATE articles SET titre = ?, auteur = ?, résumé = ?, contenue1 = ?, titre_2 = ?, contenu_2 = ?, titre_3 = ?, contenu_3 = ?, photo = ? WHERE id = ?";
             $requete_preparee = $this->connexionPDO->prepare($requete);
             
-            $requete_preparee->bindValue(1, $newValue, PDO::PARAM_STR);
-            $requete_preparee->bindValue(2, $id, PDO::PARAM_INT);
+            $requete_preparee->bindValue(1, $titre,PDO::PARAM_STR);
+            $requete_preparee->bindValue(2, $auteur,PDO::PARAM_STR);
+            $requete_preparee->bindValue(3, $résumé,PDO::PARAM_STR);
+            $requete_preparee->bindValue(4, $contenue1,PDO::PARAM_STR);
+            $requete_preparee->bindValue(5, $titre_2,PDO::PARAM_STR);
+            $requete_preparee->bindValue(6, $contenu_2,PDO::PARAM_STR);
+            $requete_preparee->bindValue(7, $titre_3,PDO::PARAM_STR);
+            $requete_preparee->bindValue(8, $contenu_3,PDO::PARAM_STR);
+            $requete_preparee->bindValue(9, $photo,PDO::PARAM_STR);
+            $requete_preparee->bindValue(10, $id,PDO::PARAM_INT);
             
             $requete_preparee->execute();
             return "mise à jour réussie";
@@ -112,7 +108,4 @@
  }
 
 $salonMassage = new MaConnexion("salon de massage","","root","localhost");
-$salonMassage->deleteArticle_Secure(7);
-
-
 ?>
