@@ -51,7 +51,7 @@
     public function insertArticle_Secure($titre, $auteur, $résumé, $contenue1, $titre_2 , $contenu_2, $titre_3, $contenu_3,$photo){
         try {
             $insertion = "INSERT INTO  `articles`(titre, auteur, résumé, contenue1, titre_2 ,contenu_2,  titre_3,contenu_3,  photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+            
             $requete = $this -> connexionPDO -> prepare($insertion);
             $requete->bindValue(1, $titre,PDO::PARAM_STR);
             $requete->bindValue(2, $auteur,PDO::PARAM_STR);
@@ -68,10 +68,10 @@
         }
     }
     
-    public function miseAJourArticles_Secure($titre, $auteur, $résumé, $contenue1, $titre_2, $contenu_2, $titre_3, $contenu_3, $photo, $id)
+    public function miseAJourArticles_Secure($titre, $auteur, $résumé, $contenue1, $titre_2, $contenu_2, $titre_3, $contenu_3, $photo,$dateDePublication, $id)
     {
         try {
-            $requete = "UPDATE articles SET titre = ?, auteur = ?, résumé = ?, contenue1 = ?, titre_2 = ?, contenu_2 = ?, titre_3 = ?, contenu_3 = ?, photo = ? WHERE id = ?";
+            $requete = "UPDATE articles SET titre = ?, auteur = ?, résumé = ?, contenue1 = ?, titre_2 = ?, contenu_2 = ?, titre_3 = ?, contenu_3 = ?, photo = ?, dateDePublication = ? WHERE id = ?";
             $requete_preparee = $this->connexionPDO->prepare($requete);
             
             $requete_preparee->bindValue(1, $titre,PDO::PARAM_STR);
@@ -83,7 +83,8 @@
             $requete_preparee->bindValue(7, $titre_3,PDO::PARAM_STR);
             $requete_preparee->bindValue(8, $contenu_3,PDO::PARAM_STR);
             $requete_preparee->bindValue(9, $photo,PDO::PARAM_STR);
-            $requete_preparee->bindValue(10, $id,PDO::PARAM_INT);
+            $requete_preparee->bindValue(10, $dateDePublication,PDO::PARAM_STR);
+            $requete_preparee->bindValue(11, $id,PDO::PARAM_INT);
             
             $requete_preparee->execute();
             return "mise à jour réussie";
